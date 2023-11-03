@@ -14,14 +14,14 @@ public class Window {
     int width;
     int height;
     String title;
+
     private long glfwWindow;
 
-    private static Window window;
+    private static Window window = null;
     private Window(){
         this.width = 1920;
         this.height = 1080;
         this.title = "Mario";
-
     }
 
     public static Window get(){
@@ -72,6 +72,7 @@ public class Window {
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+        glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
 
         //Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
@@ -88,9 +89,10 @@ public class Window {
         while(!glfwWindowShouldClose(glfwWindow)){
             //Poll events
             glfwPollEvents();
-            glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+            glClearColor(0.01f, 0.01f, 0.01f, 0.01f);
 
             glClear(GL_COLOR_BUFFER_BIT);
+
 
             glfwSwapBuffers(glfwWindow);
         }
